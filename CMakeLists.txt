@@ -1,0 +1,8 @@
+cmake_minimum_required(VERSION 2.8)
+project( Eye )
+SET(COMPILE_DEFENITIONS -v)
+find_package( OpenCV )
+include_directories( ${OpenCV_INCLUDE_DIRS} )
+include_directories(/Users/admin/Downloads/face_detect_n_track-master/ )
+add_executable( Eye    VideoFaceDetector.cpp main.cpp  sender.c receiver.c )
+target_link_libraries( Eye ${OpenCV_LIBS} )

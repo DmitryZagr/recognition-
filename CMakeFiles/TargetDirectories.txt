@@ -1,0 +1,3 @@
+/Users/admin/Work/face_detect_n_track-master/CMakeFiles/edit_cache.dir
+/Users/admin/Work/face_detect_n_track-master/CMakeFiles/rebuild_cache.dir
+/Users/admin/Work/face_detect_n_track-master/CMakeFiles/Eye.dir
