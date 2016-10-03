@@ -7,6 +7,7 @@ extern "C" {
 }
 
 #include <iostream>
+#include  <thread>
 
 #define MAX_FACE_RECTANGLE_WIDTH ( 75 )
 #define MAX_FACE_RECTANGLE_HEIGHT ( 75 )
@@ -107,6 +108,16 @@ void centrateDistance(Rect faceRect, int *soc) {
     
 }
 
+void grabFrame(cv::VideoCapture &camera) {
+    cv::Mat buff_frame;
+    while(true) {
+        camera >> buff_frame;
+       /* cv::imshow(WINDOW_NAME, buff_frame);
+        if (cv::waitKey(25) == 27) break; */
+         if (cv::waitKey(50) == 27) break;
+    }
+}
+
 
 int main(int argc, char** argv)
 {
@@ -123,7 +134,7 @@ int main(int argc, char** argv)
         fprintf(stderr, "Error getting camera...\n");
         exit(1);
     }
-
+ //   camera.set(CV_CAP_PROP_BUFFERSIZE, 1);
     cv::namedWindow(WINDOW_NAME, cv::WINDOW_KEEPRATIO | cv::WINDOW_AUTOSIZE);
 
     VideoFaceDetector detector(CASCADE_FILE, camera);
@@ -137,13 +148,14 @@ int main(int argc, char** argv)
     
     Point frameCentre(FRAME_W, FRAME_H);
     
-    
+//    std::thread thr(grabFrame, std::ref(camera));
     
     while (true)
     {
         //usleep(300000);
+
 //        auto start = cv::getCPUTickCount();
-        detector >> frame;
+       detector >> frame;
 //        auto end = cv::getCPUTickCount();
 
 //        time_per_frame = (end - start) / cv::getTickFrequency();
@@ -152,12 +164,15 @@ int main(int argc, char** argv)
 //        printf("Time per frame: %3.3f\tFPS: %3.3f\n", time_per_frame, fps);
         
 //        commandToDevaice(frameCentre, detector.facePosition(), detector.face(), &sock);
-
         cv::rectangle(frame, detector.face(), cv::Scalar(255, 0, 0));
         cv::circle(frame, detector.facePosition(), 30, cv::Scalar(0, 255, 0));
 
         cv::imshow(WINDOW_NAME, frame);
-        if (cv::waitKey(25) == 27) break;
+       if (cv::waitKey(25) == 27) break;
+       
+      for(int i =0 ; i < 5;  i++) 
+          camera >> frame; 
+
     }
 
     return 0;

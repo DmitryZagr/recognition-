@@ -4,6 +4,7 @@
 #include "opencv2/highgui.hpp"
 #include "opencv2/imgproc.hpp"
 #include "opencv2/objdetect.hpp"
+#include  <mutex>
 
 class VideoFaceDetector
 {
@@ -42,6 +43,7 @@ private:
     int                     m_resizedWidth = 320;
     cv::Point               m_facePosition;
     double                  m_templateMatchingMaxDuration = 3;
+    std::mutex g_lock;
 
     cv::Rect    doubleRectSize(const cv::Rect &inputRect, const cv::Rect &frameSize) const;
     cv::Rect    biggestFace(std::vector<cv::Rect> &faces) const;

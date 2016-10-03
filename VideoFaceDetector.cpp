@@ -252,7 +252,9 @@ void VideoFaceDetector::detectFacesTemplateMatching(const cv::Mat &frame)
 
 cv::Point VideoFaceDetector::getFrameAndDetect(cv::Mat &frame)
 {
+    g_lock.lock();
     *m_videoCapture >> frame;
+    g_lock.unlock();    
 
     // Downscale frame to m_resizedWidth width - keep aspect ratio
     m_scale = (double) std::min(m_resizedWidth, frame.cols) / frame.cols;
