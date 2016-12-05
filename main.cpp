@@ -51,7 +51,7 @@ bool deadCircule(Point frameCentre, Point facePosition) {
 
 bool centrateX(Point frameCentre, Point facePosition, int *soc) {
     
-    cout << "centrate X \n" << cout.flush();
+    cout << "centrate X \n" << flush;
     
     
     int32_t deltaX = frameCentre.x - facePosition.x;
@@ -61,11 +61,11 @@ bool centrateX(Point frameCentre, Point facePosition, int *soc) {
     else {
         if(deltaX > 0) {
             straveStepLeft(soc);
-            cout << "centrate X left\n" << cout.flush();
+            cout << "centrate X left\n" << flush;
         }
         else {
             straveStepRight(soc);
-            cout << "centrate X right\n" << cout.flush();
+            cout << "centrate X right\n" << flush;
         }
     }
     return false;
@@ -75,16 +75,16 @@ bool centrateY(Point frameCentre, Point facePosition, int *soc) {
     
 //    int* soc;
     
-    cout << "centrate Y \n" << cout.flush();
+    cout << "centrate Y \n" << flush;
     
     int32_t deltaY = frameCentre.y - facePosition.y;
     
     if(deltaY > 0) {
-        cout << "centrate Y up\n" << cout.flush();
+        cout << "centrate Y up\n" << flush;
         moveStepUp(soc);
     }
     else {
-        cout << "centrate Y down\n" << cout.flush();
+        cout << "centrate Y down\n" << flush;
         moveStepDown(soc);
     }
     
@@ -170,8 +170,9 @@ int main(int argc, char** argv)
         cv::imshow(WINDOW_NAME, frame);
        if (cv::waitKey(25) == 27) break;
        
-      for(int i =0 ; i < 5;  i++) 
-          camera >> frame; 
+        //flush buff for multithread
+//      for(int i =0 ; i < 5;  i++) 
+//          camera >> frame; 
 
     }
 
